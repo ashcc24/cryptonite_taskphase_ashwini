@@ -31,3 +31,22 @@ flag- pwn.college{YSbevu9RFAkTyeKjg-K2gsGFwtT.dVDM5QDLzcjN0czW}
 I folowed the instrutions iven and it was a straightforward code 
 /challenge/run 2>&1| grep pwn.college
 
+# duplicating piped data with tee
+flag- pwn.college{M53cFSiLSBjKt5NST8B2bgdQGhO.dFjM5QDLzcjN0czW}
+i found this quite tricky for some reason. I used | to write input to output but it wasn't working. I used tee command as such
+/challenge/pwn | tee challengeop | /challenge/college
+and then did cat challengeop to get the secret code. I then used that to write onto output and got the flag
+
+# writing to multiple programs
+flag- pwn.college{A2WQKfEaw5IPF6fk5cL9WKRngDl.dBDO0UDLzcjN0czW}
+I did some trial and error, and the command that worked was
+/challenge/hack | tee >( /challenge/the ) | /challenge/planet
+i used tee to duplicate the data, > to write it onto the command, and | to write it to planet. 
+
+# split piping stderr and stdout
+flag-pwn.college{cZfMjqOhcgqmGtewN-YrHk59TVO.dFDNwYDLzcjN0czW}
+/challenge/hack > >( /challenge/planet ) 2> >( /challenge/the )
+this took me a long time to piece together. i did it in parts till it was successful. 
+first part would obviously be /challenge/hack 
+i then used > to rediret the std output. from there it does 2 different things,
+first i did >(/challenge/the) so it would write the output there. then 2> is used to redirect the stderr, and similar to previous step >( /challenge/the ) is used to write the error output there. 
